@@ -39,8 +39,12 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        WebSocketClientHelper client = new WebSocketClientHelper();
-        client.connectToServer();
+        WebSocketClientHelper client = new WebSocketClientHelper(this);
+        try {
+            client.connectToServer();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
